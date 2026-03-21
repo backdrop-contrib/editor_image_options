@@ -1,0 +1,6 @@
+name = TinyMCE editor image options
+description = Adds more options when inserting an image (using TinyMCE), like setting CSS styles and classes.
+type = module
+backdrop = 1.x
+package = User Interface
+dependencies[] = tinymce

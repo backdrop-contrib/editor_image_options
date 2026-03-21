@@ -1,0 +1,66 @@
+<?php
+
+
+/**
+ * Implements form_FORM_ID_alter
+ * 
+ * @param unknown $form
+ * @param unknown $form_state
+ * @param unknown $form_id
+ */
+function editor_image_options_form_filter_format_editor_image_form_alter(&$form, $form_state, $form_id) {
+  
+  // Get our previous values, if any
+  $title = trim($form_state['input']['editor_object']['title'] ?? '');
+  $style = trim($form_state['input']['editor_object']['style'] ?? '');
+  $class = trim($form_state['input']['editor_object']['class'] ?? '');
+  
+  // Should we have the fieldset open or closed by default?
+  $bool_collapsed = TRUE;  
+  if (($title . $style . $class) != '') $bool_collapsed = FALSE;
+  
+  $form['more_img_options'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('More image options'),
+    '#collapsible' => TRUE,
+    '#collapsed' => $bool_collapsed,      
+  );
+  
+
+  $form['more_img_options']['eio_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title attribute'),
+    '#default_value' => $title,
+  );
+  
+  $form['more_img_options']['eio_css_style'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CSS style'),
+    '#default_value' => $style,
+  );
+  
+  $form['more_img_options']['eio_css_class'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CSS classes'),
+    '#default_value' => $class
+  );
+      
+  $form['#validate'][] = 'editor_image_options_filter_form_editor_image_form_validate';
+   
+  
+}
+
+
+
+function editor_image_options_filter_form_editor_image_form_validate(&$form, &$form_state) {
+  
+  // Move our values into the "attributes" array in our form_state, so they get applied correctly.  
+  
+  $form_state['values']['attributes']['style'] = $form_state['values']['eio_css_style'];
+  $form_state['values']['attributes']['class'] = $form_state['values']['eio_css_class'];
+  $form_state['values']['attributes']['title'] = $form_state['values']['eio_title'];
+  
+    
+}
+
+
