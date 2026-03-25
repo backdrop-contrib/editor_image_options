@@ -31,5 +31,5 @@ See example screenshot:
 
 ## Current Maintainers
 
-* [Richard Peacock](https://github.com/swampopus) - Original creator.
+* [swampopus](https://github.com/swampopus) - Original creator.
 * Seeking additional maintainers.
